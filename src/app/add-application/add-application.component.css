@@ -1,0 +1,86 @@
+
+
+
+  legend{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    align-content: center
+  }
+  h1, h2, h3,
+  h4, h5, h6 {
+      color: #333;
+      margin:50px;
+      font-weight: normal;
+      text-align-last: center;
+  }
+  button{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 5px;
+    align-content: center;
+    margin: 15px
+  }
+
+  .wrap_centre {
+    width: 100%; 
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    color: #02ADF6;
+    width:1500px;
+   
+    
+    }
+
+  .col-md-4 control-label{
+ 
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-size:16px;
+    line-height:18px;
+    color:#777;
+    float: left;
+    align-items: flex-end
+}
+
+.col-md-4 {
+  background-color: #ddd;
+  border-radius: 3px;
+  color: #000;
+  font-size: 85%;
+  margin: 1%;
+  padding: 5px 10px;
+  }
+
+  .container_wrap_centre {
+    width: 100%;  
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255,255,255,0.8);
+    
+  }
+
+  
+
+  .form-vertical {
+    width: 800px;
+    color: rgb(0, 139, 199);
+    background-color: rgb(0, 139, 199);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 72px 55px 65px 55px;
+  }

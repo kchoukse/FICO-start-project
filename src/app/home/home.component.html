@@ -1,0 +1,46 @@
+<div class="pageDiv">
+    <div style="width: 50%; 
+    margin: 25px auto;
+    padding-top: 30px;
+    height: 300px;
+    position: relative;
+    perspective: 700px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    text-align: center;
+    float: left;
+    margin-right: 70px;
+    background: rgba(18, 18, 139, 0.356);">
+    <a style="font-size: 40px; font-family: 'Courier New', Courier, monospace; font:bold; color:white">Applying a loan with our bank, is like taking a trip, minus the high prices(premiums), minus the uncertainty.</a></div>
+    <div style="width: 35%; 
+                margin: 25px auto;
+                height: 350px;
+                position: relative;
+                perspective: 700px;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+                text-align: center;
+                float: right;
+                margin-right: 70px;">
+        <div class="flipcard" style="float: left">
+            <div class="flipcard_front1"></div>
+            <div class="flipcard_back">
+                <div class="flipcard_description">
+                    <h3>Apply for loan</h3>
+                    <p>Apply for an online personal loan at low interest rates and get instant approval.</p>
+                    <button title='Apply for loan' (click)="toAdd()">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="flipcard" style="float: right">
+            <div class="flipcard_front2"></div>
+            <div class="flipcard_back">
+                <div class="flipcard_description">
+                    <h3>View loan status</h3>
+                    <p>We don't take too long to update loan approval/decline details. Hope your application</p>
+                    <button title='View Status' (click)="toView()">View </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

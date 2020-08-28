@@ -1,0 +1,73 @@
+<table class="table table-hover" *ngIf="applications && !hideTable">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">SSN</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Submitted Date</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let application of applications; let i = index" (click)="openWindow(i)">
+        <th>{{i+1}}</th>
+        <td><a>{{application.ssnNumber}}</a></td>
+        <td><a>{{application.firstName}}</a></td>
+        <td>{{application.lastName}}</td>
+        <td>{{application.dateOfSubmission | date}}</td>
+          <td >
+            <div *ngIf="application.status == 1" style="color: green">{{getStatus(application.status)}}</div>
+            <div *ngIf="application.status == -1" style="color: red">{{getStatus(application.status)}}</div>
+            <div *ngIf="application.status == 0" style="color: rgb(216, 216, 9)">{{getStatus(application.status)}}</div>
+          </td>
+      </tr>
+    </tbody>
+</table>
+<table class="table table-hover" *ngIf="applications && hideTable">
+  <tbody>
+    <tr>
+        <th>SSN</th>
+        <td>{{applications[currIndex].ssnNumber}}</td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td>{{applications[currIndex].firstName}} {{applications[currIndex].lastName}}</td>
+    </tr>
+    <tr>
+      <th>Score</th>
+      <td>{{getScore(applications[currIndex].ssnNumber)}}</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td> <div *ngIf="applications[currIndex].status == 1" style="color: green">{{getStatus(applications[currIndex].status)}}</div>
+          <div *ngIf="applications[currIndex].status == -1" style="color: red">{{getStatus(applications[currIndex].status)}}</div>
+          <div *ngIf="applications[currIndex].status == 0" style="color: rgb(216, 216, 9)">{{getStatus(applications[currIndex].status)}}</div></td>
+    </tr>
+    <tr>
+        <th>Date of Submission</th>
+        <td>{{applications[currIndex].dateOfSubmission | date:'medium'}}</td>
+    </tr>
+    <tr>
+        <th>Loan Amount</th>
+        <td>{{applications[currIndex].loanAmount}}</td>
+    </tr>
+    <tr>
+        <th>Loan Purpose</th>
+        <td>{{applications[currIndex].loanPurpose}}</td>
+    </tr>
+  </tbody>
+</table>
+<button style="
+  background-color: white;
+  color: black;
+  border: 2px solid rgb(50, 159, 223);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 20px;"
+  *ngIf="hideTable"
+  (click)="closeWindow()"
+> Go Back</button>

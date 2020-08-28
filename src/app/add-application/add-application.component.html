@@ -1,0 +1,363 @@
+ <div>
+  <h1  *ngIf="viewForm"> Submit New Application</h1>
+  <div class="wrap_centre">
+  <form class="form-vertical" [formGroup] = "formGroup" (ngSubmit)="onSubmit()"  *ngIf="viewForm">
+      <fieldset>
+      <!-- Personal Details -->
+        <div *ngIf="currentPart == 0">
+          <!-- Form Name -->
+          <legend>Personal Details</legend>
+          
+          <!-- Text input-->
+          <div class="form-group">
+              <label class="col-md-4 control-label">First Name*</label>
+              <input type="text" class="form-control col-md-4" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <span *ngIf="f.firstName.errors.required">First Name is required</span>
+                  <div *ngIf="f.firstName.errors.maxlength">First Name is too long. Only 255 characters allowed</div>
+              </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+              <label class="col-md-4 control-label">Middle Name</label>
+              <input type="text" formControlName="middleName" class="form-control col-md-4" [ngClass]="{ 'is-invalid': submitted && f.middleName.errors }" />
+              <div *ngIf="submitted && f.middleName.errors" class="invalid-feedback">
+                  <div *ngIf="f.middleName.errors.maxlength">Middle Name is too long. Only 255 characters allowed</div>
+              </div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+              <label class="col-md-4 control-label">Last Name*</label>
+              <input type="text" formControlName="lastName" class="form-control col-md-4" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+              <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                  <div *ngIf="f.lastName.errors.maxlength">Last Name is too long. Only 255 characters allowed</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="">Date of Birth*</label>
+              <input type="date" [max]="maxDate" class="col-md-4"  id="dateOfBirth" formControlName="dateOfBirth" data-date-inline-picker="false" data-date-open-on-focus="true" [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }"/>
+              <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+                  <div *ngIf="f.dateOfBirth.errors.required">Date of Birth is required</div>
+              </div>
+          </div>
+          
+          <!-- Select Basic -->
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="maritalStatus">Marital Status*</label>
+              <select id="maritalStatus" formControlName="maritalStatus" class="form-control col-md-4" [ngClass]="{ 'is-invalid': submitted && f.maritalStatus.errors }">
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Separated">Separated</option>
+                  <option value="Divorced">Divorced</option>
+                  <option value="Widowed">Widowed</option>
+              </select> 
+              <div *ngIf="submitted && f.maritalStatus.errors" class="invalid-feedback">
+                  <div *ngIf="f.maritalStatus.errors.required">Marital Status is required</div>
+              </div>
+          </div>
+          
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="ssnNumber">SSN Number*</label>
+            <input id="ssnNumber" formControlName="ssnNumber" type="text" placeholder="SSN Number" [ngClass]="{ 'is-invalid': submitted && f.ssnNumber.errors }" class="form-control col-md-4 input-md">
+            <div *ngIf="submitted && f.ssnNumber.errors" class="invalid-feedback">
+                <div *ngIf="f.ssnNumber.errors.required">SSN Number is required</div>
+            </div>
+          </div>
+          
+          <!-- Text input-->
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="loanAmount">Loan Amount*</label>
+            
+                  <span class="input-group-addon">$</span>
+                  <input id="loanAmount" formControlName="loanAmount" class="form-control col-md-4" placeholder="Amount" type="number" [ngClass]="{ 'is-invalid': submitted && f.loanAmount.errors }" required="">
+                  <div *ngIf="submitted && f.loanAmount.errors" class="invalid-feedback">
+                    <div *ngIf="f.loanAmount.errors.required">Loan Amouunt is required</div>
+                  </div> 
+                   
+           
+            </div>
+          
+          <!-- Select Basic -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="loanPurpose">Loan Purpose*</label>
+            <select id="loanPurpose" formControlName="loanPurpose" [ngClass]="{ 'is-invalid': submitted && f.loanPurpose.errors }" class="form-control col-md-4">
+                  <option value="Debt_Consolidation">Debt Consolidation</option>
+                  <option value="House">House Loan</option>
+                  <option value="Credit_Card">Credit Card Loan</option>
+                  <option value="Home_Improvement">Home Improvement Loan</option>
+                  <option value="Car">Car Loan</option>
+                  <option value="Education">Education Loan</option>
+                  <option value="Major_Purchase">Major Purchase Loan</option>
+                  <option value="Medical">Medical</option>
+                  <option value="Moving">Moving Loan</option>
+                  <option value="Renewable_Energy">Renewable_Energy Loan</option>
+                  <option value="Small_Business">Small Business Loan</option>
+                  <option value="Vacation">Vacation Loan</option>
+                  <option value="Wedding">Wedding Loan</option>
+                  <option value="Others">Others</option>
+              </select>
+            <div *ngIf="submitted && f.loanPurpose.errors" class="invalid-feedback">
+              <div *ngIf="f.loanPurpose.errors.required">Loan Purpose is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="description" *ngIf="!checkOthers()">Description</label>
+              <label class="col-md-4 control-label" for="descriptionLoan" *ngIf="checkOthers()">Specify reason for loan*</label>                  
+              <textarea class="form-control col-md-4" id="description" formControlName="description" *ngIf="!checkOthers()">Describe the reason why you are applying for the loan</textarea>
+              <textarea class="form-control col-md-4" id="descriptionLoan" *ngIf="checkOthers()" [ngClass]="{ 'is-invalid': submitted && checkOthers() && descriptionLoan == null }" required>Reason for Loan</textarea>
+              <div *ngIf="submitted && checkOthers() && descriptionLoan == null" class="invalid-feedback">
+                <div>Loan Purpose is required</div>
+              </div>
+          </div>
+          <div>
+              <button name="addDetGoToN" (click)="currentPart=currentPart+1">Address Details</button>
+          </div>
+        </div>
+      <!-- Address Details -->
+        <div *ngIf="currentPart == 1">
+            <!-- Form Name -->
+            <legend>Address Details</legend>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="addressLine1">Address Line 1*</label>  
+              <input id="addressLine1" formControlName="addressLine1" type="text" placeholder="Address Line 1" [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }" class="form-control col-md-4 input-md" required="*">
+              <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
+                  <div *ngIf="f.addressLine1.errors.required">Address Line 1 is required</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="addressLine2">Address Line 2</label>  
+              <input id="addressLine2" formControlName="addressLine2" type="text" placeholder="Address Line 2" class="form-control input-md col-md-4">
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="city">City*</label>  
+              <input id="city" formControlName="city" type="text" placeholder="City" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                  <div *ngIf="f.city.errors.required">City is required</div>
+                  <div *ngIf="f.city.errors.maxlength || f.city.errors.minlength">City Name is too long. Only 255 characters allowed</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="state">State*</label>  
+              <input id="state" formControlName="state" type="text" placeholder="State" [ngClass]="{ 'is-invalid': submitted && f.state.errors }"  class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                  <div *ngIf="f.state.errors.required">State is required</div>
+                  <div *ngIf="f.state.errors.maxlength || f.state.errors.minlength">State Name is too long. Only 255 characters allowed</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="postalCode">Postal Code*</label>  
+              <input id="postalCode" formControlName="postalCode" type="text" placeholder="12345" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                  <div *ngIf="f.postalCode.errors.required">Postalcode is required</div>
+                  <div *ngIf="f.postalCode.errors.maxlength || f.postalCode.errors.minlength">Postalcode needs to be 5 digits long.</div>
+              </div>
+            </div>
+            <div>
+                <button name="personalDetGoToP" (click)="currentPart=currentPart-1">Personal Details</button>
+                <button name="contactDetGoToN" (click)="currentPart=currentPart+1">Contact Details</button>
+            </div>
+        </div>
+      <!-- Contact Details -->
+        <div *ngIf="currentPart==2">
+            <!-- Form Name -->
+            <legend>Contact Details</legend>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="homeNumber">Home Number*</label>
+              <input id="homeNumber" formControlName="homeNumber" type="text" placeholder="Home Number" [ngClass]="{ 'is-invalid': submitted && f.homeNumber.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.homeNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.homeNumber.errors.required">Home Number is required</div>
+                  <div *ngIf="f.homeNumber.errors.maxlength || f.homeNumber.errors.minlength">Home Number needs to be 10 digits long.</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="officeNumber">Office Number</label>  
+              <input id="officeNumber" formControlName="officeNumber" type="text" placeholder="Office Number" [ngClass]="{ 'is-invalid': submitted && f.officeNumber.errors }" class="form-control col-md-4 input-md">
+              <div *ngIf="submitted && f.officeNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.officeNumber.errors.maxlength || f.officeNumber.errors.minlength">Office Number needs to be 10 digits long.</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="mobileNumber">Mobile Number</label>  
+              <input id="mobileNumber" formControlName="mobileNumber" type="text" placeholder="Mobile Number" [ngClass]="{ 'is-invalid': submitted && f.mobileNumber.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.mobileNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required</div>
+                  <div *ngIf="f.mobileNumber.errors.maxlength || f.mobileNumber.errors.minlength">Mobile Number needs to be 10 digits long.</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="email">Email ID</label>  
+              <input id="email" formControlName="email" type="text" placeholder="Email ID" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email ID is required</div>
+                  <div *ngIf="f.email.errors.email">Not recognised as an Email ID.</div>
+              </div>
+            </div>
+            <div>
+                <button name="addDetGoToP" (click)="currentPart=currentPart-1">Address Details</button>
+                <button name="empDetGoToN" (click)="currentPart=currentPart+1">Employment Details</button>
+            </div>
+          </div>
+        <!-- Employment Details -->
+          <div *ngIf="currentPart == 3">  
+              <legend>Employment Details</legend>
+              
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="employerName">Employer Name</label>  
+                <input id="employerName" formControlName="employerName" type="text" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.employerName.errors }" class="form-control col-md-4 input-md" required="">
+                <div *ngIf="submitted && f.employerName.errors" class="invalid-feedback">
+                    <div *ngIf="f.employerName.errors.required">Name is required</div>
+                    <div *ngIf="f.employerName.errors.maxlength">Name is too long. Only 255 characters allowed</div>
+                </div>
+              </div>
+              
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="designation">Designation</label>
+                <input id="designation" formControlName="designation" type="text" placeholder="Designation" [ngClass]="{ 'is-invalid': submitted && f.designation.errors }" class="form-control col-md-4 input-md">
+                <div *ngIf="submitted && f.designation.errors" class="invalid-feedback">
+                    <div *ngIf="f.designation.errors.maxlength">Designation is too long. Only 255 characters allowed</div>
+                </div>
+              </div>
+              
+              <!-- Prepended text-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="annualSalary">Annual Salary</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input id="annualSalary" formControlName="annualSalary" class="form-control col-md-4" [ngClass]="{ 'is-invalid': submitted && f.annualSalary.errors }" placeholder="Annual Salary" type="text" required="">
+                    <div *ngIf="submitted && f.annualSalary.errors" class="invalid-feedback">
+                      <div *ngIf="f.annualSalary.errors.required">Annual Salary is required</div>
+                    </div>
+                </div>
+              </div>
+              
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="workExYr">Work Experience(years)</label>  
+                <input id="workExYr" formControlName="workExYr" type="text" placeholder="Years" class="form-control col-md-2 input-md" [ngClass]="{ 'is-invalid': submitted && f.workExYr.errors }" required="">
+                <div *ngIf="submitted && f.workExYr.errors" class="invalid-feedback">
+                    <div *ngIf="f.workExYr.errors.required">Work Experience(years) is required</div>
+                </div>
+              </div>
+              
+              <!-- Select Basic -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="workExMonth">Work Experience(Month)</label>
+                <select id="workExMonth" formControlName="workExMonth" [ngClass]="{ 'is-invalid': submitted && f.workExMonth.errors }" class="form-control col-md-2">
+                    <option value="1">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                </select>
+                <div *ngIf="submitted && f.workExMonth.errors" class="invalid-feedback">
+                  <div *ngIf="f.workExMonth.errors.required">Work Experience(months) is required</div>
+                </div>
+              </div>
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="empAddressLine1">Address Line 1*</label>  
+              <input id="empAddressLine1" formControlName="empAddressLine1" type="text" placeholder="Employer Address Line 1" [ngClass]="{ 'is-invalid': submitted && f.empAddressLine1.errors }" class="form-control col-md-4 input-md" required="*">
+              <div *ngIf="submitted && f.empAddressLine1.errors" class="invalid-feedback">
+                  <div *ngIf="f.empAddressLine1.errors.required">Address Line 1 is required</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="empAddressLine2">Address Line 2</label>  
+              <input id="empAddressLine2" formControlName="empAddressLine2" type="text" placeholder="Employer Address Line 2" class="form-control input-md col-md-4">
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="empCity">City*</label>  
+              <input id="empCity" formControlName="empCity" type="text" placeholder="City" [ngClass]="{ 'is-invalid': submitted && f.empCity.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.empCity.errors" class="invalid-feedback">
+                  <div *ngIf="f.empCity.errors.required">City is required</div>
+                  <div *ngIf="f.empCity.errors.maxlength || f.empCity.errors.minlength">City Name is too long. Only 255 characters allowed</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="empState">State*</label>  
+              <input id="empState" formControlName="empState" type="text" placeholder="State" [ngClass]="{ 'is-invalid': submitted && f.empState.errors }"  class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.empState.errors" class="invalid-feedback">
+                  <div *ngIf="f.empState.errors.required">State is required</div>
+                  <div *ngIf="f.empState.errors.maxlength || f.empState.errors.minlength">State Name is too long. Only 255 characters allowed</div>
+              </div>
+            </div>
+            
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="empPostalCode">Postal Code*</label>  
+              <input id="empPostalCode" formControlName="empPostalCode" type="text" placeholder="12345" [ngClass]="{ 'is-invalid': submitted && f.empPostalCode.errors }" class="form-control col-md-4 input-md" required="">
+              <div *ngIf="submitted && f.empPostalCode.errors" class="invalid-feedback">
+                  <div *ngIf="f.empPostalCode.errors.required">Postalcode is required</div>
+                  <div *ngIf="f.empPostalCode.errors.maxlength || f.empPostalCode.errors.minlength">Postalcode needs to be 5 digits long.</div>
+              </div>
+            </div>
+            <div>
+                <button name="contactDetGoToP" (click)="currentPart=currentPart-1">Contact Details</button>
+            </div>
+            </div>
+            
+      </fieldset>
+  </form>
+  <button name="submit" (click)="onSubmit()" type="submit" *ngIf="viewForm">Submit</button>
+  </div>
+</div>
+<div *ngIf="!viewForm">
+    <h1  *ngIf="!viewForm"> Application Submitted!</h1>
+    <button style="
+  background-color: white;
+  color: black;
+  border: 2px solid rgb(69, 171, 230);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 20px;"
+  *ngIf="!viewForm"
+  (click)="goToView()"
+> View Application Status</button>
+
+
+</div>
+ 
+               
+          
+          <!-- Form Name -->
+         
+                      
+  
